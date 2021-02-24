@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(href="https://cdn.jsdelivr.net/npm/vis-network@7.6.9/dist/dist/vis-network.min.css", rel="stylesheet") 
+    link(href="https://unpkg.com/@primer/css/dist/primer.css", rel="stylesheet")
+    script(src="https://cdn.jsdelivr.net/npm/vis-network@7.6.9/dist/vis-network.min.js") 
+    title= title
+  body
+    div.px-4
+      form.input-group.py-4(action="/word", method="get")    
+        input(class="form-control input-lg py-3", type="text", name="word", placeholder="Enter a starter word", aria-label="Starter word")
+        span.input-group-button
+          button.btn.btn-mktg(type="submit") Search
+      
+      h2#loading
+        span Loading graph (some words have too much synonyms)
+        span.AnimatedEllipsis   
+      div.Box#container(style="height: 80vh;")
+    script.
+      const jsonNodes = JSON.parse(atob("#{nodes}"))
+      const jsonEdges = JSON.parse(atob("#{edges}"))
+      const nodes = new vis.DataSet(jsonNodes)
+      const edges = new vis.DataSet(jsonEdges)
+      const container = document.getElementById("container")
+      const data = {nodes, edges}
+      const options = {
+        nodes: {
+          shape: "dot",
+          font: {
+            size: 16,
+            strokeColor: '#ffffff',
+            strokeWidth: 8,
+          }
+        },
+      }
+      const net = new vis.Network(container, data, options)
+      net.once("afterDrawing", () => document.getElementById('loading').remove())
+    h1= message 

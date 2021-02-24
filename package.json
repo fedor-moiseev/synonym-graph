@@ -1,0 +1,38 @@
+{
+  "name": "node-template",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server --async-stack-traces"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-security": "^1.4.0",
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "nodemon": "^2.0.7",
+    "prettier": "2.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --cache --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
+    "express": "^4.17.1",
+    "make-fetch-happen": "^8.0.14",
+    "pug": "^3.0.0"
+  }
+}
